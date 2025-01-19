@@ -30,7 +30,7 @@ const App = () => {
     const [user, setUser] = useState(null);
     const [isUserLoading, setUserLoading] = useState(true);
     const [darkMode, setDarkMode] = useState(false);
-    
+
 
     const server = "http://localhost:5000";
     // const server = "https://server-seven-gray-72.vercel.app";
@@ -164,7 +164,7 @@ const App = () => {
 
             if (res.ok) {
                 const data = await res.json();
-                
+
                 // let x = data.token;
                 // console.log(jwtDecode(x));
 
@@ -189,12 +189,17 @@ const App = () => {
     };
 
 
+
+
     const handleGoogleLogin = async (credentialResponse) => {
         try {
             const response = jwtDecode(credentialResponse.credential);
             const name = response.name;
-            const picture = response.picture || "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg";
+            const picture = response.picture;
             const email = response.email;
+
+            console.log(response.picture);
+            
 
             const res = await fetch(`${server}/google-login`, {
                 method: "POST",
@@ -238,7 +243,7 @@ const App = () => {
 
 
 
-    const handleRegister = async ({ name, email, avatar, password = "" , role = "student"}) => {
+    const handleRegister = async ({ name, email, avatar, password = "", role = "student" }) => {
         try {
             avatar = avatar !== "" ? avatar : "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg";
 
@@ -323,22 +328,22 @@ const App = () => {
                         <Route path="/" element={<Home isDarkTheme={darkMode} user={user} fetchMostRecentCars={[]} />} />
                         <Route path="/login" element={<Login user={user} onLogin={handleLogin} googleLogin={handleGoogleLogin} />} />
                         <Route path="/register" element={<Register user={user} onRegister={handleRegister} googleLogin={handleGoogleLogin} />} />
-                        <Route path="/dashboard" element={<Dashboard user={user}  />} />
-                        <Route path="/create-study-session" element={<CreateStudySession user={user}  />} />
-                        <Route path="/view-all-study-session" element={<ViewAllStudySessions user={user}  />} />
-                        <Route path="/upload-materials/:sessionId" element={<UploadMaterials user={user}  />} />
-                        <Route path="/update-materials/:materialId" element={<UpdateMaterial  user={user}  />} />
-                        <Route path="/view-materials/:sessionId" element={<ViewMaterials user={user}  />} />
-                        <Route path="/study-session/:sessionId" element={<StudySessionDetails user={user}  />} />
-                        <Route path="/view-booked-session" element={<ViewBookedSessions user={user}  />} />
-                        <Route path="/create-note" element={<CreateNote user={user}  />} />
-                        <Route path="/update-note/:noteId" element={<UpdateNote user={user}  />} />
-                        <Route path="/view-my-notes" element={<ViewMyNotes user={user}  />} />
-                        <Route path="/view-all-users" element={<ViewAllUsers user={user}  />} />
-                        <Route path="/manage-all-study-session" element={<ManageAllStudySessions user={user}  />} />
+                        <Route path="/dashboard" element={<Dashboard user={user} />} />
+                        <Route path="/create-study-session" element={<CreateStudySession user={user} />} />
+                        <Route path="/view-all-study-session" element={<ViewAllStudySessions user={user} />} />
+                        <Route path="/upload-materials/:sessionId" element={<UploadMaterials user={user} />} />
+                        <Route path="/update-materials/:materialId" element={<UpdateMaterial user={user} />} />
+                        <Route path="/view-materials/:sessionId" element={<ViewMaterials user={user} />} />
+                        <Route path="/study-session/:sessionId" element={<StudySessionDetails user={user} />} />
+                        <Route path="/view-booked-session" element={<ViewBookedSessions user={user} />} />
+                        <Route path="/create-note" element={<CreateNote user={user} />} />
+                        <Route path="/update-note/:noteId" element={<UpdateNote user={user} />} />
+                        <Route path="/view-my-notes" element={<ViewMyNotes user={user} />} />
+                        <Route path="/view-all-users" element={<ViewAllUsers user={user} />} />
+                        <Route path="/manage-all-study-session" element={<ManageAllStudySessions user={user} />} />
                         {/* <Route path="/check-payment" element={<CheckPayment user={user}  />} /> */}
-                        <Route path="/all-sessions" element={<AllSessions user={user}  />} />
-                        
+                        <Route path="/all-sessions" element={<AllSessions user={user} />} />
+
                         <Route path="*" element={<NotFoundPage darkMode={darkMode} />} />
                     </Routes>
                 </div>

@@ -247,10 +247,43 @@ app.post("/login", async (req, res) => {
     }
 });
 
+
+async function fetchImageAsBase64(imageUrl, refererUrl) {
+    try {
+        const response = await fetch(imageUrl, {
+            method: 'GET',
+            headers: {
+                'Referer': refererUrl,
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch image: ${response.statusText}`);
+        }
+
+        const buffer = await response.arrayBuffer();
+        const mimeType = response.headers.get('content-type');
+        const base64Image = Buffer.from(buffer).toString('base64');
+
+        return `data:${mimeType};base64,${base64Image}`;
+    } catch (error) {
+        throw new Error(`Failed to fetch image: ${error.message}`);
+    }
+}
+
+
+
 app.post("/google-login", async (req, res) => {
     const { name, email, avatar, role } = req.body;
 
-    if (!name || !email || !avatar || !role) {
+    let image = avatar;
+    if(!image){
+        image = "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg";
+    }else{
+        image = await fetchImageAsBase64(image);
+    }
+
+    if (!name || !email || !image || !role) {
         return res.status(400).json({ error: "All fields are required" });
     }
 
@@ -258,10 +291,17 @@ app.post("/google-login", async (req, res) => {
         const existingUser = await usersCollection.findOne({ email });
 
         if (existingUser) {
-            existingUser.token = encodeToken(String(existingUser._id));
-            return res.status(200).json(existingUser);
+            await usersCollection.updateOne(
+                { email },
+                { $set: { name, avatar: image } }
+            );
+
+            const updatedUser = await usersCollection.findOne({ email });
+            updatedUser.token = encodeToken(String(updatedUser._id));
+
+            return res.status(200).json(updatedUser);
         } else {
-            const newUser = { name, email, avatar, password: "", role };
+            const newUser = { name, email, avatar: image, password: "", role };
 
             const result = await usersCollection.insertOne(newUser);
             const insertedUser = await usersCollection.findOne({ _id: result.insertedId });
@@ -273,6 +313,7 @@ app.post("/google-login", async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
 
 app.get("/test", async (req, res) => {
     try {
