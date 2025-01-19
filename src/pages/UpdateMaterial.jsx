@@ -29,7 +29,7 @@ const UpdateMaterial = ({ user }) => {
     useEffect(() => {
         const fetchMaterial = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/get-material/${materialId}`);
+                const response = await fetch(`https://tutor-hub-beta.vercel.app/get-material/${materialId}`);
                 const data = await response.json();
 
                 if (response.ok) {
@@ -125,7 +125,7 @@ const UpdateMaterial = ({ user }) => {
 
 
 
-            const response = await fetch(`http://localhost:5000/update-material/${materialId}`, {
+            const response = await fetch(`https://tutor-hub-beta.vercel.app/update-material/${materialId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

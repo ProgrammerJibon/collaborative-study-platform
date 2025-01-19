@@ -11,7 +11,7 @@ const StudySessionsSection = () => {
     const fetchSessions = async () => {
         setIsLoading(true);
         try {
-            const response = await fetch('http://localhost:5000/ongoing-sessions');
+            const response = await fetch('https://tutor-hub-beta.vercel.app/ongoing-sessions');
             const data = await response.json();
             if (response.ok) {
                 setSessions(data.slice(0, 6)); // Display only the first 6 sessions

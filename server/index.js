@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const corsOpts = {
-    origin: ['https://cerulean-kitten-16952f.netlify.app', 'http://localhost:5173'],
+    origin: ['https://education-tutor-hub.netlify.app/', 'http://localhost:5173'],
     methods: [
         "GET",
         "POST",

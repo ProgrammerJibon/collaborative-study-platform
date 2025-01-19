@@ -83,7 +83,7 @@ const UploadMaterials = ({ user }) => {
                 base64Image = await resizeImageToBase64(formData.image);
             }
 
-            const response = await fetch(`http://localhost:5000/upload-materials/${sessionId}`, {
+            const response = await fetch(`https://tutor-hub-beta.vercel.app/upload-materials/${sessionId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -51,7 +51,7 @@ const CreateStudySession = ({ user }) => {
         setIsSubmitting(true);
 
         try {
-            const response = await fetch('http://localhost:5000/study-sessions', {
+            const response = await fetch('https://tutor-hub-beta.vercel.app/study-sessions', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

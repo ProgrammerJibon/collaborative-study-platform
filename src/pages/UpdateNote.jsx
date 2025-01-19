@@ -25,7 +25,7 @@ const UpdateNote = ({ user }) => {
     useEffect(() => {
         const fetchNoteData = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/get-note/${noteId}`);
+                const response = await fetch(`https://tutor-hub-beta.vercel.app/get-note/${noteId}`);
                 const data = await response.json();
 
                 if (response.ok) {
@@ -61,7 +61,7 @@ const UpdateNote = ({ user }) => {
         setIsSubmitting(true);
 
         try {
-            const response = await fetch(`http://localhost:5000/update-note/${noteId}`, {
+            const response = await fetch(`https://tutor-hub-beta.vercel.app/update-note/${noteId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

@@ -36,7 +36,7 @@ const CreateNote = ({ user }) => {
         setIsSubmitting(true);
 
         try {
-            const response = await fetch('http://localhost:5000/create-note', {
+            const response = await fetch('https://tutor-hub-beta.vercel.app/create-note', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

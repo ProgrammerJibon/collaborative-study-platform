@@ -19,7 +19,7 @@ const StudySessionDetails = ({ user }) => {
     const fetchSessionDetails = async () => {
         setIsLoading(true);
         try {
-            const response = await fetch(`http://localhost:5000/study-session/${sessionId}?studentEmail=${user?.email}`);
+            const response = await fetch(`https://tutor-hub-beta.vercel.app/study-session/${sessionId}?studentEmail=${user?.email}`);
             const data = await response.json();
             if (response.ok) {
                 setSessionDetails(data.session);
@@ -49,7 +49,7 @@ const StudySessionDetails = ({ user }) => {
 
 
         try {
-            const response = await fetch('http://localhost:5000/book-session', {
+            const response = await fetch('https://tutor-hub-beta.vercel.app/book-session', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ const StudySessionDetails = ({ user }) => {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/post-review', {
+            const response = await fetch('https://tutor-hub-beta.vercel.app/post-review', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

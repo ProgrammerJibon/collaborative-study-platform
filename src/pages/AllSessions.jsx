@@ -31,7 +31,7 @@ const AllSessions = () => {
         setIsLoading(true);
         try {
             const response = await fetch(
-                `http://localhost:5000/all-sessions?search=${searchQuery}&status=${filterStatus}&lastId=${lastId || ''}`
+                `https://tutor-hub-beta.vercel.app/all-sessions?search=${searchQuery}&status=${filterStatus}&lastId=${lastId || ''}`
             );
             const data = await response.json();
 

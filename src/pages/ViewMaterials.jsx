@@ -20,7 +20,7 @@ const ViewMaterials = ({ user }) => {
     const fetchMaterials = async () => {
         setIsLoading(true);
         try {
-            const response = await fetch(`http://localhost:5000/view-materials/${sessionId}`);
+            const response = await fetch(`https://tutor-hub-beta.vercel.app/view-materials/${sessionId}`);
             const data = await response.json();
             if (response.ok) {
                 setMaterials(data);
@@ -37,7 +37,7 @@ const ViewMaterials = ({ user }) => {
 
     const handleDelete = async (materialsId) => {
         try {
-            const response = await fetch(`http://localhost:5000/delete-material/${materialsId}`, {
+            const response = await fetch(`https://tutor-hub-beta.vercel.app/delete-material/${materialsId}`, {
                 method: 'DELETE',
             });
 

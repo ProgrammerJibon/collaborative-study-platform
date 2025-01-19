@@ -20,7 +20,7 @@ const ViewAllUsers = ({ user }) => {
     const fetchUsers = async (query = '') => {
         setIsLoading(true);
         try {
-            const response = await fetch(`http://localhost:5000/users?search=${query}`);
+            const response = await fetch(`https://tutor-hub-beta.vercel.app/users?search=${query}`);
             const data = await response.json();
             if (response.ok) {
                 setUsers(data.filter(item => item._id !== user._id));
@@ -42,7 +42,7 @@ const ViewAllUsers = ({ user }) => {
 
     const handleRoleUpdate = async (userId, newRole) => {
         try {
-            const response = await fetch(`http://localhost:5000/update-user-role/${userId}`, {
+            const response = await fetch(`https://tutor-hub-beta.vercel.app/update-user-role/${userId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

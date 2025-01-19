@@ -25,7 +25,7 @@ const ViewAllStudySessions = ({ user }) => {
         setIsLoading(true);
         try {
             const response = await fetch(
-                `http://localhost:5000/tutor-sessions?userId=${user._id}&page=${page}&limit=${limit}`
+                `https://tutor-hub-beta.vercel.app/tutor-sessions?userId=${user._id}&page=${page}&limit=${limit}`
             );
             const data = await response.json();
             if (response.ok) {

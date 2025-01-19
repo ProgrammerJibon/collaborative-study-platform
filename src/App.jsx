@@ -32,8 +32,8 @@ const App = () => {
     const [darkMode, setDarkMode] = useState(false);
 
 
-    const server = "http://localhost:5000";
-    // const server = "https://server-seven-gray-72.vercel.app";
+    // const server = "https://localhost:5000";
+    const server = "https://tutor-hub-beta.vercel.app/";
 
     String.prototype.toCapitalize = function () {
         return this

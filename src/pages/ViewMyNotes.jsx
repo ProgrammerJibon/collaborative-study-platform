@@ -29,7 +29,7 @@ const ViewMyNotes = ({ user }) => {
 
         setIsLoading(true);
         try {
-            const response = await fetch(`http://localhost:5000/my-notes?userId=${user._id}`);
+            const response = await fetch(`https://tutor-hub-beta.vercel.app/my-notes?userId=${user._id}`);
             const data = await response.json();
             if (response.ok) {
                 setNotes(data);
@@ -55,7 +55,7 @@ const ViewMyNotes = ({ user }) => {
         }
 
         try {
-            const response = await fetch(`http://localhost:5000/delete-note/${noteId}`, {
+            const response = await fetch(`https://tutor-hub-beta.vercel.app/delete-note/${noteId}`, {
                 method: 'DELETE',
             });
 

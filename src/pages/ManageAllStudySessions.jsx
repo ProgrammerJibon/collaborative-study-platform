@@ -33,7 +33,7 @@ const ManageAllStudySessions = ({ user }) => {
         setIsLoading(true);
         try {
             const response = await fetch(
-                `http://localhost:5000/manage-study-sessions?search=${searchQuery}&status=${filterStatus}&page=${currentPage}&limit=${limit}`
+                `https://tutor-hub-beta.vercel.app/manage-study-sessions?search=${searchQuery}&status=${filterStatus}&page=${currentPage}&limit=${limit}`
             );
             const data = await response.json();
             if (response.ok) {
@@ -66,8 +66,8 @@ const ManageAllStudySessions = ({ user }) => {
         try {
             const url =
                 actionType === 'Approve'
-                    ? `http://localhost:5000/approve-session/${selectedSession._id}`
-                    : `http://localhost:5000/update-session/${selectedSession._id}`;
+                    ? `https://tutor-hub-beta.vercel.app/approve-session/${selectedSession._id}`
+                    : `https://tutor-hub-beta.vercel.app/update-session/${selectedSession._id}`;
             const response = await fetch(url, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
@@ -93,7 +93,7 @@ const ManageAllStudySessions = ({ user }) => {
     const handleDelete = async (sessionId) => {
         setIsSubmitting(true);
         try {
-            const response = await fetch(`http://localhost:5000/delete-session/${sessionId}`, {
+            const response = await fetch(`https://tutor-hub-beta.vercel.app/delete-session/${sessionId}`, {
                 method: 'DELETE',
             });
 

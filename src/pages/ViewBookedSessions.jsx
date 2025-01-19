@@ -25,7 +25,7 @@ const ViewBookedSessions = ({ user }) => {
 
         setIsLoading(true);
         try {
-            const response = await fetch(`http://localhost:5000/booked-sessions?studentEmail=${user.email}`);
+            const response = await fetch(`https://tutor-hub-beta.vercel.app/booked-sessions?studentEmail=${user.email}`);
             const data = await response.json();
             if (response.ok) {
                 setBookedSessions(data);
