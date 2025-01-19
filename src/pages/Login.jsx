@@ -9,8 +9,8 @@ import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { HashLoader } from "react-spinners";
 
 const Login = ({ onLogin, googleLogin, user }) => {
-    const [email, setEmail] = useState("admin@jibon.com.bd");
-    const [password, setPassword] = useState("Aa1234");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [isLogging, setIsLogging] = useState(false);
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();

@@ -54,7 +54,7 @@ const ViewBookedSessions = ({ user }) => {
                     <HashLoader color='yellow' />
                 </div>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                bookedSessions.length > 0 ? <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {bookedSessions.map((session) => (
                         <div key={session._id} className="border p-4 rounded shadow">
                             <h3 className="text-lg font-bold">{session.title}</h3>
@@ -76,7 +76,7 @@ const ViewBookedSessions = ({ user }) => {
                             </div>
                         </div>
                     ))}
-                </div>
+                </div> : <div>Nothing found...</div>
             )}
         </div>
     );

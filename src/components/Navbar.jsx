@@ -66,12 +66,6 @@ const Navbar = ({ user, handleLogout, changeDarkMode, darkMode }) => {
                             <span>Home</span>
                         </Link>
                     </li>
-                    <li>
-                        <Link to="/all-sessions" className="hover:underline  flex items-center space-x-2">
-                            <span><PiTreeViewFill /></span>
-                            <span>All Sessions</span>
-                        </Link>
-                    </li>
                     {user && (
                         <>
                             <li>
@@ -83,6 +77,13 @@ const Navbar = ({ user, handleLogout, changeDarkMode, darkMode }) => {
 
                         </>
                     )}
+                    
+                    <li>
+                        <Link to="/all-sessions" className="hover:underline  flex items-center space-x-2">
+                            <span><PiTreeViewFill /></span>
+                            <span>All Sessions</span>
+                        </Link>
+                    </li>
 
                     <li>
                         <button onClick={changeDarkMode} className="hover:underline flex items-center space-x-2">

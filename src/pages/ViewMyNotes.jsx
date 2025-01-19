@@ -82,7 +82,7 @@ const ViewMyNotes = ({ user }) => {
                     <HashLoader color='yellow' />
                 </div>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                notes.length > 0 ? <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {notes.map((note) => (
                         <div key={note._id} className="border p-4 rounded shadow">
                             <h3 className="text-lg font-bold">{note.title}</h3>
@@ -104,7 +104,7 @@ const ViewMyNotes = ({ user }) => {
                             </div>
                         </div>
                     ))}
-                </div>
+                </div>: <div>Nothing found...</div>
             )}
         </div>
     );

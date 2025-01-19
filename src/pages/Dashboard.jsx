@@ -5,6 +5,7 @@ import { IoIosCreate } from 'react-icons/io';
 import { MdEditNote, MdOutlineEdit } from 'react-icons/md';
 import { FaGears } from 'react-icons/fa6';
 import { LuComponent } from 'react-icons/lu';
+import { PiTreeViewFill } from 'react-icons/pi';
 
 const Dashboard = ({ user }) => {
     const navigate = useNavigate();
@@ -27,6 +28,7 @@ const Dashboard = ({ user }) => {
             { path: '/view-all-study-session', label: 'View Study Sessions', icon: <FaBookReader /> },
         ],
         student: [
+            { path: '/all-sessions', label: 'All sessions', icon: <PiTreeViewFill /> },
             { path: '/view-booked-session', label: 'View Booked Session', icon: <FaBookReader /> },
             { path: '/create-note', label: 'Create Personal Note', icon: <IoIosCreate /> },
             { path: '/view-my-notes', label: 'Manage Personal Notes', icon: <MdEditNote /> },
