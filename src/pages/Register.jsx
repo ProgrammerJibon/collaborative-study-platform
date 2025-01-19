@@ -14,7 +14,7 @@ const Register = ({ user, onRegister, googleLogin }) => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [avatar, setavatar] = useState("");
-    const [role, setrole] = useState("");
+    const [role, setrole] = useState("student");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
