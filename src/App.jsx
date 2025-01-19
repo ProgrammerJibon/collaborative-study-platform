@@ -33,7 +33,7 @@ const App = () => {
 
 
     // const server = "https://localhost:5000";
-    const server = "https://tutor-hub-beta.vercel.app/";
+    const server = "https://tutor-hub-beta.vercel.app";
 
     String.prototype.toCapitalize = function () {
         return this
