@@ -206,7 +206,7 @@ app.get("/login/:token", async (req, res) => {
 
 app.post("/users", async (req, res) => {
     const { name, email, avatar, password, role } = req.body;
-    if (!name || !email || !avatar || !password || !role) {
+    if (!name || !email || !password || !role) {
         return res.status(400).json({ error: "All fields are required" });
     }
     try {
@@ -601,6 +601,7 @@ app.get('/study-session/:sessionId', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch session details.' });
     }
 });
+
 
 
 
