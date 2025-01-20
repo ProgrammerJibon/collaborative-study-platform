@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import StudySessionCard from './StudySessionCard';
 import { HashLoader } from 'react-spinners';
 
-const StudySessionsSection = () => {
+const StudySessionsSection = ({user}) => {
     const [sessions, setSessions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -43,7 +43,7 @@ const StudySessionsSection = () => {
                     {sessions.map((session) => {                        
 
                         return (
-                            <StudySessionCard key={session._id} session={session} />
+                            <StudySessionCard key={session._id} session={session} user={user} />
                         );
                     })}
                 </div> : <div className='text-center text-sm'>No sessions registration is ongoing</div>

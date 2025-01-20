@@ -10,7 +10,7 @@ const UpdateMaterial = ({ user }) => {
             navigate("/login?next=" + path);
         }
     }, [user]);
-    
+
 
     const { materialId } = useParams();
 
@@ -95,12 +95,14 @@ const UpdateMaterial = ({ user }) => {
                     let width = img.width;
                     let height = img.height;
 
-                    if (width > height && width > maxDimension) {
-                        height = (height * maxDimension) / width;
-                        width = maxDimension;
-                    } else if (height > width && height > maxDimension) {
-                        width = (width * maxDimension) / height;
-                        height = maxDimension;
+                    if (width > maxDimension || height > maxDimension) {
+                        if (width > height) {
+                            height = (height * maxDimension) / width;
+                            width = maxDimension;
+                        } else {
+                            width = (width * maxDimension) / height;
+                            height = maxDimension;
+                        }
                     }
 
                     canvas.width = width;

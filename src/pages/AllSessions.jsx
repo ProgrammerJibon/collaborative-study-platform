@@ -4,7 +4,7 @@ import HashLoader from 'react-spinners/HashLoader';
 import StudySessionCard from '../components/StudySessionCard';
 import { useNavigate } from 'react-router-dom';
 
-const AllSessions = () => {
+const AllSessions = ({user}) => {
     const [sessions, setSessions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
@@ -110,7 +110,7 @@ const AllSessions = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {sessions.map((session) => (
-                    <StudySessionCard session={session} key={session._id} />
+                    <StudySessionCard user={user} session={session} key={session._id} />
                 ))}
             </div>
 

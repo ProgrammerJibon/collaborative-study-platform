@@ -31,6 +31,7 @@ const ManageAllStudySessions = ({ user }) => {
 
     const fetchStudySessions = async () => {
         setIsLoading(true);
+        
         try {
             const response = await fetch(
                 `https://tutor-hub-beta.vercel.app/manage-study-sessions?search=${searchQuery}&status=${filterStatus}&page=${currentPage}&limit=${limit}`
@@ -114,7 +115,12 @@ const ManageAllStudySessions = ({ user }) => {
 
     useEffect(() => {
         fetchStudySessions();
-    }, [searchQuery, filterStatus, currentPage]);
+    }, [, currentPage]);
+
+    useEffect(()=>{
+        setCurrentPage(1);
+        fetchStudySessions();
+    }, [searchQuery, filterStatus])
 
 
     if (!user) {
@@ -265,7 +271,7 @@ const ManageAllStudySessions = ({ user }) => {
                             </tbody>
                         </table>
                     </div> : <div>No results for your query</div>}
-                    <div className="flex justify-center mt-4 space-x-2">
+                    {totalPages > 1 && <div className="flex justify-center mt-4 space-x-2">
                         <button
                             onClick={() => setCurrentPage(currentPage - 1)}
                             disabled={currentPage === 1}
@@ -290,7 +296,7 @@ const ManageAllStudySessions = ({ user }) => {
                         >
                             Next
                         </button>
-                    </div>
+                    </div>}
                 </>
             )}
 

@@ -68,7 +68,7 @@ const ViewAllStudySessions = ({ user }) => {
                     <HashLoader color='yellow' />
                 </div>
             ) : (
-                <>
+                sessions.length > 0 ? <>
                     <div className="grid gap-4">
                         {sessions.map((session) => (
                             <div key={session._id} className="border p-4 rounded shadow">
@@ -127,7 +127,7 @@ const ViewAllStudySessions = ({ user }) => {
                         ))}
                     </div>
 
-                    <div className="flex justify-center mt-4 space-x-2">
+                    {totalPages > 1 && <div className="flex justify-center mt-4 space-x-2">
                         <button
                             onClick={() => handlePageChange(page - 1)}
                             disabled={page === 1}
@@ -154,8 +154,8 @@ const ViewAllStudySessions = ({ user }) => {
                         >
                             Next
                         </button>
-                    </div>
-                </>
+                    </div>}
+                </>: "nothing to show.."
             )}
         </div>
     );

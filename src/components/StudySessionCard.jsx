@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom"
 
-export default ({ session }) => {
+export default ({ session, user }) => {
     const isOngoing =
         new Date(session.regStartDate) <= new Date() &&
         new Date(session.regEndDate) >= new Date();
+
+        // console.log(user);
+        
     return (
         <div key={session._id} className="border p-4 rounded shadow">
             <h3 className="text-xl font-bold">{session.title}</h3>
@@ -28,7 +31,7 @@ export default ({ session }) => {
                     {isOngoing ? 'Ongoing' : 'Closed'}
                 </span>
                 <Link
-                    to={`/study-session/${session._id}`}
+                    to={user?`/study-session/${session._id}`:`/login?next=`+encodeURIComponent(`/study-session/${session._id}`)}
                     className="text-blue-500 px-4 py-2 dark:bg-white rounded-md"
                 >
                     Read More

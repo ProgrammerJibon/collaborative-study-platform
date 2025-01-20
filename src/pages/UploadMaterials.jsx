@@ -12,7 +12,7 @@ const UploadMaterials = ({ user }) => {
             navigate("/login?next=" + path);
         }
     }, [user]);
-    
+
 
     const { sessionId } = useParams();
     const [formData, setFormData] = useState({
@@ -50,12 +50,14 @@ const UploadMaterials = ({ user }) => {
                     let width = img.width;
                     let height = img.height;
 
-                    if (width > height && width > maxDimension) {
-                        height = (height * maxDimension) / width;
-                        width = maxDimension;
-                    } else if (height > width && height > maxDimension) {
-                        width = (width * maxDimension) / height;
-                        height = maxDimension;
+                    if (width > maxDimension || height > maxDimension) {
+                        if (width > height) {
+                            height = (height * maxDimension) / width;
+                            width = maxDimension;
+                        } else {
+                            width = (width * maxDimension) / height;
+                            height = maxDimension;
+                        }
                     }
 
                     canvas.width = width;
@@ -72,6 +74,7 @@ const UploadMaterials = ({ user }) => {
         });
     };
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
@@ -81,6 +84,8 @@ const UploadMaterials = ({ user }) => {
 
             if (formData.image) {
                 base64Image = await resizeImageToBase64(formData.image);
+                console.log(base64Image);
+
             }
 
             const response = await fetch(`https://tutor-hub-beta.vercel.app/upload-materials/${sessionId}`, {

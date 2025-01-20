@@ -25,7 +25,7 @@ const Home = ({ user, isDarkTheme = false }) => {
 
 
 
-                    <StudySessionsSection />
+                    <StudySessionsSection user={user} />
 
 
                     <TutorSection />
