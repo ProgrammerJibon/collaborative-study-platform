@@ -637,9 +637,7 @@ app.get('/ongoing-sessions', async (req, res) => {
 
         const approvedSessions = await studySessionsCollection
             .find({
-                status: 'approved',
-                regStartDate: { $lte: now },
-                regEndDate: { $gte: now },
+                status: 'approved'
             })
             .limit(6)
             .toArray();
