@@ -363,7 +363,7 @@ const App = () => {
                     <Routes>
                         <Route path="/" element={<Home isDarkTheme={darkMode} user={user} fetchMostRecentCars={[]} />} />
                         <Route path="/login" element={<Login user={user} onLogin={handleLogin} googleLogin={handleGoogleLogin} githubLogin={githubLogin} />} />
-                        <Route path="/register" element={<Register user={user} onRegister={handleRegister} googleLogin={handleGoogleLogin} />} />
+                        <Route path="/register" element={<Register user={user} onRegister={handleRegister} googleLogin={handleGoogleLogin}  githubLogin={githubLogin} />} />
                         <Route path="/dashboard" element={<Dashboard user={user} />} />
                         <Route path="/create-study-session" element={<CreateStudySession user={user} />} />
                         <Route path="/view-all-study-session" element={<ViewAllStudySessions user={user} />} />

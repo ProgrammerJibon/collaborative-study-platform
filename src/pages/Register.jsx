@@ -9,8 +9,10 @@ import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import googleCloudSecret from "../.env/client_secret_497545261562-ttr9shqeltjmlejplljunb9qciaf42h5.apps.googleusercontent.com.json";
 import { HashLoader } from "react-spinners";
+import GitHubLogin from 'react-github-login';
+import githubAuthData from "../.env/github_secret_0355189afeefe7b995af682d9d762b02ebfb7ae0.json";
 
-const Register = ({ user, onRegister, googleLogin }) => {
+const Register = ({ user, onRegister, googleLogin, githubLogin }) => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [avatar, setavatar] = useState("");
@@ -57,6 +59,25 @@ const Register = ({ user, onRegister, googleLogin }) => {
             toast.error("Registration failed. Please try again.");
         }
     };
+
+
+    const onGithubSuccess = async response => {
+        setIsRegistering(true);
+        if ("code" in response) {
+            await githubLogin(response.code, githubAuthData.clientId, githubAuthData.secret);
+        }
+        setIsRegistering(false);
+    };
+
+    const onGoogleSuccess = async credentialResponse => {
+        setIsRegistering(true);
+        await googleLogin(credentialResponse);
+        setIsRegistering(false);
+    };
+    const onFailure = response => {
+        setIsRegistering(false);
+    };
+
 
     return (
         <div className="py-12 px-6 max-w-lg mx-auto">
@@ -110,7 +131,7 @@ const Register = ({ user, onRegister, googleLogin }) => {
                         defaultValue={"student"}
                         onChange={(e) => {
                             setrole(e.target.value);
-                            if(e.target.value == "admin"){
+                            if (e.target.value == "admin") {
                                 toast.warning("Admin is available only for test purpose by examineer.")
                             }
                         }}
@@ -156,10 +177,26 @@ const Register = ({ user, onRegister, googleLogin }) => {
                         </button>
                         <div className="text-center mt-6 space-y-4 px-6 mb-6">
                             <div>or</div>
+                            <GitHubLogin
+                                clientId={githubAuthData.clientId}
+                                redirectUri={window.location.origin}
+                                onSuccess={onGithubSuccess}
+                                onFailure={onFailure}
+                                className="w-full "
+                                onRequest={()=>{
+                                    setIsRegistering(true);
+                                }}
+
+                                
+                            >
+                                <div className="py-2 px-4  flex justify-center items-center bg-gray-600 hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
+                                    <span>Sign in with GitHub</span>
+                                </div>
+                            </GitHubLogin>
                             <GoogleOAuthProvider clientId={googleCloudSecret.web.client_id}>
-                                <div className="mx-auto w-full overflow-hidden w-max-[400px] pb-4 google-btn">
+                                <div className="mx-auto overflow-hidden w-max-[400px] pb-4 google-btn">
                                     <GoogleLogin
-                                        onSuccess={googleLogin}
+                                        onSuccess={onGoogleSuccess}
                                         onError={() => {
                                             // // console.log("Login Failed");
                                         }}

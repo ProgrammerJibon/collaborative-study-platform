@@ -8,7 +8,7 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { HashLoader } from "react-spinners";
 import GitHubLogin from 'react-github-login';
-import githubAuthData from "../.env/github_secret_0355189afeefe7b995af682d9d762b02ebfb7ae0.json"
+import githubAuthData from "../.env/github_secret_0355189afeefe7b995af682d9d762b02ebfb7ae0.json";
 
 const Login = ({ onLogin, googleLogin, githubLogin, user }) => {
     const [email, setEmail] = useState("");
