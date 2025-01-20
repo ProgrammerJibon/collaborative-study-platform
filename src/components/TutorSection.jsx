@@ -38,7 +38,7 @@ const TutorSection = () => {
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {tutors.map((tutor) => {
-                        console.log(tutor);
+                        // console.log(tutor);
                         
                         return (
                             <div key={tutor._id} className="border p-4 space-y-2 rounded shadow  items-center w-64">

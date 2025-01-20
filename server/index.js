@@ -56,7 +56,7 @@ async function connectToDatabase() {
         await client.connect();
         db = client.db("collaborative-study-platform");
         usersCollection = db.collection("users");
-        console.log("Connected to database...");
+        // console.log("Connected to database...");
     } catch (error) {
         console.error("Database connection failed:", error);
     }
@@ -277,9 +277,9 @@ app.post("/google-login", async (req, res) => {
     const { name, email, avatar, role } = req.body;
 
     let image = avatar;
-    if(!image){
+    if (!image) {
         image = "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg";
-    }else{
+    } else {
         image = await fetchImageAsBase64(image);
     }
 
@@ -313,6 +313,91 @@ app.post("/google-login", async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
+
+
+
+app.post("/github-login", async (req, res) => {
+    const { code, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = req.body;
+
+    if (!code || !GITHUB_CLIENT_ID || !GITHUB_CLIENT_SECRET) {
+        return res.status(400).json({ error: "Code is required" });
+    }
+
+    try {
+        // Exchange code for access token
+        const tokenResponse = await fetch("https://github.com/login/oauth/access_token", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                client_id: GITHUB_CLIENT_ID,
+                client_secret: GITHUB_CLIENT_SECRET,
+                code: code,
+            }),
+        });
+
+        const tokenData = await tokenResponse.json();
+
+        if (!tokenData.access_token) {
+            return res.status(400).json({ error: "Failed to fetch GitHub access token" });
+        }
+
+        const accessToken = tokenData.access_token;
+
+        // Fetch user details from GitHub API
+        const userResponse = await fetch("https://api.github.com/user", {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+
+        const userData = await userResponse.json();
+
+        if (!userData) {
+            return res.status(400).json({ error: "Failed to fetch GitHub user details" });
+        }
+
+        const { name, email, avatar_url: avatar } = userData;
+
+        // Default values if some fields are missing
+        const userName = name || "GitHub User";
+        let image = avatar || "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg";
+
+        // Check and store user details in the database
+        const existingUser = await usersCollection.findOne({ email });
+
+        if (existingUser) {
+            await usersCollection.updateOne(
+                { email },
+                { $set: { name: userName, avatar: image } }
+            );
+
+            const updatedUser = await usersCollection.findOne({ email });
+            updatedUser.token = encodeToken(String(updatedUser._id));
+
+            return res.status(200).json(updatedUser);
+        } else {
+            const newUser = { name: userName, email, avatar: image, password: "", role: "student" };
+
+            const result = await usersCollection.insertOne(newUser);
+            const insertedUser = await usersCollection.findOne({ _id: result.insertedId });
+
+            insertedUser.token = encodeToken(String(insertedUser._id));
+            return res.status(201).json(insertedUser);
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+
+
+
+
 
 
 app.get("/test", async (req, res) => {
@@ -700,7 +785,7 @@ app.get("/check-payment", async (req, res) => {
                 if (existingBooking) {
                     return res.status(400).json({ error: 'You have already booked this session.' });
                 } else {
-                    console.log("i'm here");
+                    // console.log("i'm here");
                     const newBooking = {
                         sessionId,
                         studentEmail,
@@ -713,7 +798,7 @@ app.get("/check-payment", async (req, res) => {
         }
         return res.json(stripeSession);
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return res.json({})
     }
 })
@@ -1138,8 +1223,8 @@ app.put('/update-session/:sessionId', async (req, res) => {
 
 app.get('/all-sessions', async (req, res) => {
     const { search = '', status = '', lastId } = req.query;
-    const limit = 3; 
-    
+    const limit = 3;
+
     try {
         const query = {
             status: 'approved',
@@ -1188,4 +1273,6 @@ app.get('/all-sessions', async (req, res) => {
 
 
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+    console.log(`Server running on ${PORT}`)
+});

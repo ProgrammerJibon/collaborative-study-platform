@@ -32,7 +32,7 @@ const App = () => {
     const [darkMode, setDarkMode] = useState(false);
 
 
-    // const server = "https://localhost:5000";
+    // const server = "http://localhost:5000";
     const server = "https://tutor-hub-beta.vercel.app";
 
     String.prototype.toCapitalize = function () {
@@ -166,7 +166,7 @@ const App = () => {
                 const data = await res.json();
 
                 // let x = data.token;
-                // console.log(jwtDecode(x));
+                // // console.log(jwtDecode(x));
 
                 localStorage.setItem("jwt-token", data.token);
                 setUser({
@@ -198,8 +198,8 @@ const App = () => {
             const picture = response.picture;
             const email = response.email;
 
-            console.log(response.picture);
-            
+            // console.log(response.picture);
+
 
             const res = await fetch(`${server}/google-login`, {
                 method: "POST",
@@ -238,6 +238,42 @@ const App = () => {
             return false;
         }
     };
+
+
+    const githubLogin = async (code, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET) => {
+        try {
+            const res = await fetch(`${server}/github-login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ code, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET }),
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+
+                localStorage.setItem("jwt-token", data.token);
+                setUser({
+                    _id: data._id,
+                    name: data.name,
+                    email: data.email,
+                    avatar: data.avatar,
+                    role: data.role,
+                });
+
+                return true;
+            } else {
+                const errorData = await res.json();
+                console.error("Error during GitHub login:", errorData.error);
+                return false;
+            }
+        } catch (error) {
+            console.error("Error during GitHub login:", error);
+            return false;
+        }
+    };
+
 
 
 
@@ -326,7 +362,7 @@ const App = () => {
                 <div className={`relative z-0 mx-auto min-h-[80vh] xl:mb-[250px] `}>
                     <Routes>
                         <Route path="/" element={<Home isDarkTheme={darkMode} user={user} fetchMostRecentCars={[]} />} />
-                        <Route path="/login" element={<Login user={user} onLogin={handleLogin} googleLogin={handleGoogleLogin} />} />
+                        <Route path="/login" element={<Login user={user} onLogin={handleLogin} googleLogin={handleGoogleLogin} githubLogin={githubLogin} />} />
                         <Route path="/register" element={<Register user={user} onRegister={handleRegister} googleLogin={handleGoogleLogin} />} />
                         <Route path="/dashboard" element={<Dashboard user={user} />} />
                         <Route path="/create-study-session" element={<CreateStudySession user={user} />} />

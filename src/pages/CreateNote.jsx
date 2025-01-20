@@ -43,7 +43,7 @@ const CreateNote = ({ user }) => {
                 },
                 body: JSON.stringify(noteData),
             });
-            console.log(noteData);
+            // console.log(noteData);
 
 
             const result = await response.json();

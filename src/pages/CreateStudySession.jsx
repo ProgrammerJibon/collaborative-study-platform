@@ -61,7 +61,7 @@ const CreateStudySession = ({ user }) => {
 
             const result = await response.json();
             if (response.ok) {
-                console.log('Study Session Created:', result);
+                // console.log('Study Session Created:', result);
                 toast.success('Study session created successfully!');
                 setFormData(formDataDefValues);
             } else {

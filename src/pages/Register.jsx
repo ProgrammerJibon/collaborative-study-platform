@@ -161,7 +161,7 @@ const Register = ({ user, onRegister, googleLogin }) => {
                                     <GoogleLogin
                                         onSuccess={googleLogin}
                                         onError={() => {
-                                            // console.log("Login Failed");
+                                            // // console.log("Login Failed");
                                         }}
                                         width="420px"
                                     />

@@ -33,7 +33,7 @@ const UpdateMaterial = ({ user }) => {
                 const data = await response.json();
 
                 if (response.ok) {
-                    console.log(data);
+                    // console.log(data);
 
                     setFormData({
                         title: data.title,
